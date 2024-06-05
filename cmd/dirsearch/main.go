@@ -57,7 +57,7 @@ func (p *Plugin) Export(key string, params []string, ctx plugin.ContextProvider)
 }
 
 func init() {
-	plugin.RegisterMetrics(&impl, "DirSearch", "dir.search", "Return the external IP address of the host where agent is running.")
+	plugin.RegisterMetrics(&impl, "DirSearch", "dir.search", "Returns a json with the list of directories.")
 }
 func main() {
 	h, err := container.NewHandler(impl.Name())

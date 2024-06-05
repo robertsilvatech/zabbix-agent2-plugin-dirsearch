@@ -71,3 +71,57 @@ In this example we have the directory tree in /var and inside /var/log we have z
 The regex match will occur if it is a directory and if you include zabbix in the name, in this case **/var/log/zabbix**
 
 For more examples visit [the examples folder](examples)
+
+## How to use
+
+### Instale o Go no servidor
+
+RHEL based
+
+```bash
+dnf install golang-go -y
+```
+
+### Clone o repositório
+
+```bash
+dnf install -y git
+git clone git@github.com:robertsilvatech/zabbix-agent2-plugin-dirsearch.git
+```
+
+### Crie um diretório para armazenar plugins do Zabbix Agent 2
+
+```bash
+mkdir -p /etc/zabbix/external_plugins
+```
+
+### Copie o binario de acordo com o seu s.o e sua arquitetura
+
+```bash
+ls zabbix-agent2-plugin-dirsearch/build/bin/
+# Output
+dirsearch  dirsearch-linux-amd64  dirsearch-linux-arm64
+```
+
+```bash
+cp zabbix-agent2-plugin-dirsearch/build/bin/dirsearch-linux-amd64 /etc/zabbix/external_plugins
+ls -l /etc/zabbix/external_plugins
+```
+
+### Crie o arquivo de configuração do plugin
+
+```bash
+echo 'Plugins.DirSearch.System.Path=/etc/zabbix/external_plugins/dirsearch-linux-amd64' > /etc/zabbix/zabbix_agent2.d/plugins.d/dirsearch.conf
+```
+
+### Teste a chave do item
+
+```bash
+zabbix_agent2 -t dir.search["/var/log","zabbix$"]
+```
+
+### Reinicie o Agent 
+
+```bash
+systemctl restart zabbix-agent2
+```
