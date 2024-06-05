@@ -5,10 +5,33 @@ References:
 
 ## VS Code - Developing inside a Container
 
-```
+```bash
 mkdir -p zabbix-agent2-plugins/.devcontainer
 cd zabbix-agent2-plugins
 vim .devcontainer/devcontainer.json
+```
+
+Adicionar conteúdo
+
+```json
+{
+    "name": "My dev environment",
+    "image": "robertsilvatech/my-dev-container:1.0.3",
+	"containerEnv": {
+		"GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}",
+		"GITHUB_USER": "${localEnv:GITHUB_USER}",
+		"GOPROXY": "${localEnv:GOPROXY}" , 
+		"HTTP_PROXY": "${localEnv:HTTP_PROXY}" , 
+		"HTTPS_PROXY": "${localEnv:HTTPS_PROXY}"
+	},	
+	"remoteEnv": {
+		"GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}",
+		"GITHUB_USER": "${localEnv:GITHUB_USER}",
+		"GOPROXY": "${localEnv:GOPROXY}" , 
+		"HTTP_PROXY": "${localEnv:HTTP_PROXY}" , 
+		"HTTPS_PROXY": "${localEnv:HTTPS_PROXY}"
+	}	
+}
 ```
 
 ## Desenvolvendo o plugin
@@ -25,10 +48,9 @@ Criando o arquivo main.go
 touch cmd/dirsearch/main.go
 ```
 
-Inicializando o módulo
+Construindo o módulo do plugin
 
 ```bash
-# cd cmd/dirsearch
 go mod init github.com/zabbix-agent2-plugin-dirsearch
 GOPROXY=direct go get golang.zabbix.com/sdk/plugin@master
 go mod tidy

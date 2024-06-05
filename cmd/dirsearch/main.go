@@ -53,7 +53,6 @@ func (p *Plugin) Export(key string, params []string, ctx plugin.ContextProvider)
 		fmt.Println(err)
 	}
 	return string(b), nil
-
 }
 
 func init() {
