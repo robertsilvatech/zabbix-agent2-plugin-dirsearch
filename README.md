@@ -84,6 +84,11 @@ Steps:
 - Restart the Agent
 - Validate the plugin against Zabbix Agent 2 metrics
 
+### Requirements
+
+- Linux operating system
+- Go lang installed on the server running zabbix agent 2
+
 ### Install Go on the server running Zabbix Agent 2
 
 Example for RHEL-based distributions
