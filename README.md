@@ -74,28 +74,38 @@ For more examples visit [the examples folder](examples)
 
 ## How to use
 
-### Instale o Go no servidor
+Steps:
+- Install Go on the server running Zabbix Agent 2
+- Clone the repository
+- Create a directory to store Zabbix Agent 2 plugins
+- Copy the binary according to your OS and architecture
+- Create the plugin configuration file
+- Test the item key
+- Restart the Agent
+- Validate the plugin against Zabbix Agent 2 metrics
 
-RHEL based
+### Install Go on the server running Zabbix Agent 2
+
+Example for RHEL-based distributions
 
 ```bash
 dnf install golang-go -y
 ```
 
-### Clone o repositório
+### Clone the repository
 
 ```bash
 dnf install -y git
 git clone git@github.com:robertsilvatech/zabbix-agent2-plugin-dirsearch.git
 ```
 
-### Crie um diretório para armazenar plugins do Zabbix Agent 2
+### Create a directory to store Zabbix Agent 2 plugins
 
 ```bash
 mkdir -p /etc/zabbix/external_plugins
 ```
 
-### Copie o binario de acordo com o seu s.o e sua arquitetura
+### Copy the binary according to your OS and architecture
 
 ```bash
 ls zabbix-agent2-plugin-dirsearch/build/bin/
@@ -108,20 +118,45 @@ cp zabbix-agent2-plugin-dirsearch/build/bin/dirsearch-linux-amd64 /etc/zabbix/ex
 ls -l /etc/zabbix/external_plugins
 ```
 
-### Crie o arquivo de configuração do plugin
+### Create the plugin configuration file
 
 ```bash
 echo 'Plugins.DirSearch.System.Path=/etc/zabbix/external_plugins/dirsearch-linux-amd64' > /etc/zabbix/zabbix_agent2.d/plugins.d/dirsearch.conf
 ```
 
-### Teste a chave do item
+### Test the item key
 
 ```bash
 zabbix_agent2 -t dir.search["/var/log","zabbix$"]
 ```
 
-### Reinicie o Agent 
+Output
+
+```bash
+dir.search[/var/log,zabbix$]                  [s|[{"name":"/var/log/zabbix"}]]
+```
+
+### Restart the Agent
 
 ```bash
 systemctl restart zabbix-agent2
 ```
+
+### Validate the plugin against Zabbix Agent 2 metrics
+
+```bash
+zabbix_agent2 -R metrics | grep DirSearch -A 6
+```
+
+Output
+```bash
+[DirSearch]
+active: false
+path: /etc/zabbix/external_plugins/dirsearch-linux-amd64
+capacity: 0/1000
+check on start: 0
+tasks: 0
+dir.search: Returns a json with the list of directories.
+```
+
+Ready, create a master item and LLD with dependent item to monitor your logs
