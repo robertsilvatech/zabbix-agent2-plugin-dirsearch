@@ -29,12 +29,45 @@ Reference: https://www.zabbix.com/documentation/current/en/manual/config/items/i
 dir.search[dir_scan, regexp]
 ```
 
-Parametros:
+Parameters:
 - dir_scan: The absolute path of the directory you want to search for subdirectories
 - regexp: The regular expression that describes the required pattern
 
 Examples
 
+- dir.search["/var","zabbix$"]
+
+In this example we have the directory tree in /var and inside /var/log we have zabbix
+
+```bash
+├── local
+├── lock -> ../run/lock
+├── log
+│   ├── anaconda
+│   ├── audit
+│   ├── btmp
+│   ├── chrony
+│   ├── cloud-init.log
+│   ├── cloud-init-output.log
+│   ├── cron
+│   ├── dnf.librepo.log
+│   ├── dnf.log
+│   ├── dnf.rpm.log
+│   ├── droplet-agent.update.log
+│   ├── hawkey.log
+│   ├── kdump.log
+│   ├── lastlog
+│   ├── messages
+│   ├── private
+│   ├── qemu-ga
+│   ├── README -> ../../usr/share/doc/systemd/README.logs
+│   ├── secure
+│   ├── sssd
+│   ├── tallylog
+│   ├── wtmp
+│   └── zabbix
 ```
-di
-```
+
+The regex match will occur if it is a directory and if you include zabbix in the name, in this case **/var/log/zabbix**
+
+For more examples visit [the examples folder](examples)
