@@ -115,7 +115,7 @@ dnf install golang-go -y
 
 ```bash
 dnf install -y git
-git clone git@github.com:robertsilvatech/zabbix-agent2-plugin-dirsearch.git
+git clone https://github.com/robertsilvatech/zabbix-agent2-plugin-dirsearch.git
 ```
 
 ### Create a directory to store Zabbix Agent 2 plugins
