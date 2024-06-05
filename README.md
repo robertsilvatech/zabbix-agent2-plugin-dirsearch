@@ -1,6 +1,20 @@
 # README.md
 
-- Development Guide: [click here](docs/development_guide.md)
+- [README.md](#readmemd)
+  - [Plugin description](#plugin-description)
+    - [Supported keys](#supported-keys)
+  - [How to use](#how-to-use)
+    - [Requirements](#requirements)
+    - [Install Go on the server running Zabbix Agent 2](#install-go-on-the-server-running-zabbix-agent-2)
+    - [Clone the repository](#clone-the-repository)
+    - [Create a directory to store Zabbix Agent 2 plugins](#create-a-directory-to-store-zabbix-agent-2-plugins)
+    - [Copy the binary according to your OS and architecture](#copy-the-binary-according-to-your-os-and-architecture)
+    - [Create the plugin configuration file](#create-the-plugin-configuration-file)
+    - [Test the item key](#test-the-item-key)
+    - [Restart the Agent](#restart-the-agent)
+    - [Validate the plugin against Zabbix Agent 2 metrics](#validate-the-plugin-against-zabbix-agent-2-metrics)
+  - [Development Guide](#development-guide)
+
 
 ## Plugin description
 
@@ -165,3 +179,7 @@ dir.search: Returns a json with the list of directories.
 ```
 
 Ready, create a master item and LLD with dependent item to monitor your logs
+
+## Development Guide
+
+- Development Guide: [click here](docs/development_guide.md)
